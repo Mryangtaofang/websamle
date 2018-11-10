@@ -16,6 +16,7 @@ public class UserService implements ApplicationContextAware {
     private UserMapper userMapper;
 
     public User findUserById(Long id ) {
+
         return userMapper.selectById(id);
     }
 

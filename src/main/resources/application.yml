@@ -1,0 +1,33 @@
+
+#端口号
+server:
+  port: 80
+
+#日志
+logging:
+  path: D://log
+  level:
+    com:
+      favorites: DEBUG
+      yang:
+        mapper:
+          UserMapper: debug
+    org:
+      hibernate: ERROR
+      springframework:
+        web: INFO
+
+
+#https://www.jianshu.com/p/d5943e303a1f
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+
+      
+mybatis:
+  config-location: classpath:spring/sqlmap-config.xml

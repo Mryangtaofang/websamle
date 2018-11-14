@@ -4,6 +4,7 @@ import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,6 +15,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
@@ -21,7 +23,14 @@ import java.sql.SQLException;
 import java.util.Arrays;
 
 @Configuration
+@Slf4j
+@Order(3)
 public class DruidConfiguration {
+
+
+    static {
+        log.info("加载DruidConfiguration...........");
+    }
 
     @Autowired
     private DataSourceConfig dataSourceConfig;
@@ -30,6 +39,7 @@ public class DruidConfiguration {
     @Bean
     @Primary
     public DataSource dataSource(){
+        log.info("初始化dataSource...........");
         DruidDataSource datasource = new DruidDataSource();
         datasource.setDbType(dataSourceConfig.type); //设置数据库类型
         datasource.setUrl(dataSourceConfig.url); //数据库url

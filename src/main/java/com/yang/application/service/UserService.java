@@ -3,16 +3,21 @@ package com.yang.application.service;
 
 import com.yang.mapper.UserMapper;
 import com.yang.model.User;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService implements ApplicationContextAware {
+@Slf4j
+public class UserService{
 
-//    @Autowired
+    @Autowired
     private UserMapper userMapper;
 
     public User findUserById(Long id ) {
@@ -20,8 +25,4 @@ public class UserService implements ApplicationContextAware {
         return userMapper.selectById(id);
     }
 
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        userMapper = (UserMapper) applicationContext.getBean("userMapper");
-    }
 }

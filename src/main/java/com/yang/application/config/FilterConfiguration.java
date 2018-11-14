@@ -2,17 +2,26 @@ package com.yang.application.config;
 
 import com.yang.application.runner.RedisRunner;
 import com.yang.application.runner.StartupRunner;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.filters.RemoteIpFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-//@Configuration
+
+@Configuration
+@Slf4j
+@Order(2)
 public class FilterConfiguration {
+
+    static {
+        log.info("加载FilterConfiguration...........");
+    }
 
     /**
      * 现在假设我们的应用程序运行在一台负载均衡代理服务器后方，因此需要将代理服务器发来的请求包含的IP地址转换成真正的用户IP。
@@ -26,7 +35,6 @@ public class FilterConfiguration {
 
     @Bean
     public FilterRegistrationBean testFilterRegistration() {
-
         FilterRegistrationBean registration = new FilterRegistrationBean();
         registration.setFilter(new UserFilter());
         registration.addUrlPatterns("/*");
